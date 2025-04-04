@@ -15,9 +15,9 @@
     - [Mitigaciones](#mitigaciones)
       - [1. Uso de `filter_input()` y funciones de sanitización para filtrar caracteres](#1-uso-de-filter_input-y-funciones-de-sanitización-para-filtrar-caracteres)
       - [2. Mitigación con `htmlspecialchars()`](#2-mitigación-con-htmlspecialchars)
-      - [Validación de entrada](#validación-de-entrada)
-      - [Protección contra inyecciones HTML y JS (XSS)](#protección-contra-inyecciones-html-y-js-xss)
-      - [Protección contra ataques CSRF (Cross-Site Request Forgery)](#protección-contra-ataques-csrf-cross-site-request-forgery)
+      - [3. Validación de entrada](#3-validación-de-entrada)
+      - [4. Protección contra inyecciones HTML y JS (XSS)](#4-protección-contra-inyecciones-html-y-js-xss)
+      - [5. Protección contra ataques CSRF (Cross-Site Request Forgery)](#5-protección-contra-ataques-csrf-cross-site-request-forgery)
 
 ---
 
@@ -269,7 +269,7 @@ if (isset($_POST['comment'])) {
 </p>
 <p align="center"><em>Intento de generar alerta con sanitización mediante la función htmlspecialchars()</em></p>
 
-#### Validación de entrada
+#### 3. Validación de entrada
 
 Además de sanitizar los datos del usuario para evitar ataques XSS, es fundamental **validar el contenido** para garantizar que se ajuste a los requisitos funcionales de la aplicación.
 
@@ -305,7 +305,7 @@ if (!empty($comment) && strlen($comment) <= 500) {
 </p>
 <p align="center"><em>Intento de generar alerta con sanitización mediante la validación de entrada</em></p>
 
-#### Protección contra inyecciones HTML y JS (XSS)
+#### 4. Protección contra inyecciones HTML y JS (XSS)
 
 Aunque `htmlspecialchars()` es muy eficaz para evitar la ejecución de scripts maliciosos en el navegador, en algunos casos es preferible **eliminar completamente las etiquetas HTML**, especialmente si no deseas permitir texto enriquecido (negritas, cursivas, enlaces, etc.). Para esto, PHP ofrece la función `strip_tags()`.
 
@@ -330,7 +330,7 @@ Podemos usar esta función:
 - Para evitar el uso de etiquetas peligrosas como ``<script>``, ``<iframe>``, ``<object>``, etc.
 - Como capa adicional de protección junto con ``htmlspecialchars()`` o validaciones personalizadas.
 
-#### Protección contra ataques CSRF (Cross-Site Request Forgery)
+#### 5. Protección contra ataques CSRF (Cross-Site Request Forgery)
 
 Además de ataques XSS, las aplicaciones web pueden ser vulnerables a ataques de tipo **CSRF**, en los cuales un atacante realiza acciones en nombre del usuario sin su consentimiento, aprovechando que el navegador envía automáticamente cookies de sesión.
 
